@@ -1,18 +1,18 @@
 version: '3.7'
 
 services: 
-  database_produtos_api:
+  database_nest_api:
     image: postgres
-    container_name: database_produtos_api
+    container_name: database_nest_api
     #restart: always
     ports: 
       - 5432:5432
     environment:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=produtos_api
+      - POSTGRES_DB=nest_api
     volumes:
-      - pgdata_produtos_api:/data/postgres
+      - pgdata_nest_api:/data/postgres
     network_mode: host
 
 #  app_produtos_api:
@@ -25,5 +25,5 @@ services:
 #    network_mode: host
 
 volumes:
-  pgdata_produtos_api:
+  pgdata_nest_api:
     driver: local
