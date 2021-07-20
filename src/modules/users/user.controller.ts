@@ -18,13 +18,13 @@ export class UserController {
     }
     
     @Post()
-    create(@Body() livro){
-        return this.userService.create(livro)
+    create(@Body() user){
+        return this.userService.create(user)
     }
     
     @Put(':id')
-    update(@Param() params, @Body() livro){
-        return this.userService.update(params.id, livro)
+    update(@Param() params, @Body() user){
+        return this.userService.update(params.id, user)
     }
     
     @Delete(':id')
