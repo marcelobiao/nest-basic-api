@@ -1,5 +1,7 @@
-import { Controller, Get, Post, Param, Body, Put, Delete } from "@nestjs/common";
+import { Controller, Get, Post, Param, Body, Put, Delete, ValidationPipe } from "@nestjs/common";
 import { UserService } from "./user.service";
+import { User } from "./entities/user.entity";
+import { CreateUserDto } from "./dto/create-user.dto";
 
 @Controller('users')
 export class UserController {
@@ -18,12 +20,14 @@ export class UserController {
     }
     
     @Post()
-    create(@Body() user){
-        return this.userService.create(user)
+    create(
+        @Body(new ValidationPipe({errorHttpStatusCode: 422})) CreateUserDto: CreateUserDto
+    ){
+        return this.userService.create(CreateUserDto)
     }
     
     @Put(':id')
-    update(@Param() params, @Body() user){
+    update(@Param() params, @Body() user: User){
         return this.userService.update(params.id, user)
     }
     
