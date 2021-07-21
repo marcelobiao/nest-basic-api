@@ -1,9 +1,10 @@
-import { Module } from '@nestjs/common'
+import { Module, ClassSerializerInterceptor } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ConfigModule } from '@nestjs/config'
 import { UserModule } from './modules/users/user.module'
 
 import config from '../ormconfig'
+import { APP_INTERCEPTOR } from '@nestjs/core'
 
 @Module({
   imports: [
@@ -12,6 +13,11 @@ import config from '../ormconfig'
     UserModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ClassSerializerInterceptor
+    }
+  ],
 })
 export class AppModule {}
