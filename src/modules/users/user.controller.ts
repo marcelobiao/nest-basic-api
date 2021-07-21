@@ -2,6 +2,7 @@ import { Controller, Get, Post, Param, Body, Put, Delete, ValidationPipe } from 
 import { UserService } from "./user.service";
 import { User } from "./entities/user.entity";
 import { CreateUserDto } from "./dto/create-user.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
 
 @Controller('users')
 export class UserController {
@@ -27,8 +28,11 @@ export class UserController {
     }
     
     @Put(':id')
-    update(@Param() params, @Body() user: User){
-        return this.userService.update(params.id, user)
+    update(
+        @Param() params, 
+        @Body(new ValidationPipe({errorHttpStatusCode: 422})) UpdateUserDto: UpdateUserDto
+    ){
+        return this.userService.update(params.id, UpdateUserDto)
     }
     
     @Delete(':id')
